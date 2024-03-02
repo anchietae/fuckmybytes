@@ -7,12 +7,11 @@ async function encrypt() {
     content = await UTF8GetBytes(content);
     content = await toBase64(content);
     content = await AESencrypt(content, key);
-    //content = await compress(content);
+    content = await compress(content);
     content = await DESencrypt(content, key);
-    //content = await compress(content);
+    content = await compress(content);
     content = await TRIPLEDESencrypt(content, key);
     console.log('Final encrypted string is: ' + content);
-    debugstr = content;
 }
 async function UTF8GetBytes(str) {
     let out = await textEncoder.encode(str);
@@ -30,9 +29,19 @@ async function AESencrypt(str, key) {
     return out.toString();
 }
 async function compress(str) {
-    let out = await LZUTF8.compress(str);
-    console.log('Compressed string is: ' + out.toString());
-    return out.toString();
+    return new Promise((resolve, reject) => {
+        const encoder = new TextEncoder();
+        const data = encoder.encode(str);
+        const options = {
+            level: 9,
+            memLevel: 9,
+        };
+        const compressedData = pako.gzip(data, options);
+        const compressedStr = String.fromCharCode.apply(null, compressedData);
+        resolve(compressedStr);
+        console.log('Compressed string is: ' + compressedStr.toString());
+        return compressedStr.toString();
+    });
 }
 async function DESencrypt(str, key) {
     let out = await CryptoJS.DES.encrypt(str, key);
@@ -46,8 +55,3 @@ async function TRIPLEDESencrypt(str, key) {
 }
 
 window.encrypt = encrypt;
-
-window.onload = function() {
-    let debugstr = '';
-    window.debugstr = debugstr;
-}
