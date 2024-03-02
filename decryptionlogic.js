@@ -28,7 +28,11 @@ async function decompress(str) {
             return e.charCodeAt(0);
         });
         const decompressedData = pako.ungzip(data);
-        const decompressedStr = String.fromCharCode.apply(null, decompressedData);
+        let decompressedStr = '';
+        for (let i = 0; i < decompressedData.length; i += 10000) {
+            let chunk = decompressedData.slice(i, i + 10000);
+            decompressedStr += String.fromCharCode.apply(null, chunk);
+        }
         resolve(decompressedStr);
         console.log('Decompressed string is: ' + decompressedStr);
         return decompressedStr;
