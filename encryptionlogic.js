@@ -2,6 +2,7 @@ import { SHAPassgen } from './shared.js';
 const textEncoder = new TextEncoder();
 
 async function encrypt() {
+    document.getElementById('Output').value = '';
     let key = await SHAPassgen(document.getElementById('Password').value)
     let content = document.getElementById('Content').value;
     content = await UTF8GetBytes(content);

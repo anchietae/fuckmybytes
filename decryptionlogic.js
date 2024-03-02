@@ -3,6 +3,7 @@ const textDecoder = new TextDecoder();
 
 
 async function decrypt() {
+    document.getElementById('Output').value = '';
     let key = await SHAPassgen(document.getElementById('Password').value)
     let content = document.getElementById('Content').value;
     content = await TRIPLEDESdecrypt(content, key);
