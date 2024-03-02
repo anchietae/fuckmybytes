@@ -15,7 +15,7 @@ body {
 }
 
 div.header {
-    backdrop-filter: blur(2px);
+    background-color: #00000090;
     padding-right: 20px;
 }
 
@@ -23,9 +23,8 @@ div.box {
     margin-top: 20px !important;
     margin: 5px;
     padding: 5px;
-    backdrop-filter: blur(2px);
+    background-color: #00000090;
 }
-
 div.title {
     text-align: right;
     line-height: 8px;
