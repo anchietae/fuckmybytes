@@ -27,3 +27,10 @@ div.title {
     text-align: right;
     line-height: 8px;
 }
+
+button {
+    color: #000000;
+}
+input {
+    color: #000000;
+}
