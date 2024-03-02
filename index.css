@@ -52,3 +52,8 @@ input {
     color: #cccccc;
     background-color: #00000020;
 }
+input[type=file]::file-selector-button {
+    font-family: "Retron2000";
+    color: #cccccc;
+    background-color: #00000020;
+}
