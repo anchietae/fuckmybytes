@@ -40,7 +40,11 @@ async function compress(str) {
             memLevel: 9,
         };
         const compressedData = pako.gzip(data, options);
-        const compressedStr = String.fromCharCode.apply(null, compressedData);
+        let compressedStr = '';
+        for (let i = 0; i < compressedData.length; i += 10000) {
+            let chunk = compressedData.slice(i, i + 10000);
+            compressedStr += String.fromCharCode.apply(null, chunk);
+        }
         resolve(compressedStr);
         console.log('Compressed string is: ' + compressedStr.toString());
         return compressedStr.toString();
