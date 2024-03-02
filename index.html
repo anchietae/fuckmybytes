@@ -26,8 +26,7 @@
         <textarea id="Content" placeholder="Content" class="input"></textarea><br>
         <div>
         <p style="display: inline;">Or</p>
-        <input type="file" class="fileinput" id="File" style="display: inline;">
-        <button onclick="loadfile()" style="display: inline;">Load File</button><br>
+        <input type="file" class="fileinput" id="File" style="display: inline;"><br>
         </div>
         <input type="password" id="Password" placeholder="Password"><br>
         <button onclick="encrypt()">Encrypt</button>
@@ -37,10 +36,6 @@
     </div>
     <div class="box">
         <textarea id="Output" placeholder="Output" class="input" disabled></textarea>
-        <p>Or the encrypted file:</p>
-        <p id="filesize"></p>
-        <button onclick="downloadEnc()" id="downenc">Download Encrypted File</button>
-        <button onclick="downloadDec()" id="downdec">Download Decrypted File</button>
     </div>
     <div class="box">
         <h2>How it works?</h2>
@@ -56,6 +51,8 @@
             <li>3DES encrypt the string</li>
         </ol>
         <p>That's it.</p>
+        <h2>For files:</h2>
+        <p>I couldn't do a better encryption for files because of the encoding, so I did a simple AES encryption.</p>
         <p>Still don't beleive? <a href="https://github.com/balazsmanus/fuckmybytes">Github</a></p>
     </div>
 </body>

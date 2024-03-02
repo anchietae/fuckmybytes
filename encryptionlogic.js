@@ -1,7 +1,6 @@
 import { SHAPassgen } from './shared.js';
 const textEncoder = new TextEncoder();
 const textDecoder = new TextDecoder();
-let filehash = null;
 
 async function encrypt() {
     document.getElementById('Output').value = '';
@@ -22,43 +21,22 @@ async function encrypt() {
     key = '';
 }
 async function encryptFile() {
-    document.getElementById('downenc').style.display = 'none';
-    document.getElementById('downdec').style.display = 'none';
-    let key = await SHAPassgen(document.getElementById('Password').value)
-    let content = window.filebytes;
-    // create a hash of the file
-    let hash = await CryptoJS.SHA512(content);
-    window.filehash = hash.toString();
-    // logic
-    content = await textEncoder.encode(content).toString();
-    content = await AESencrypt(content, key);
-    content = await DESencrypt(content, key);
-    content = await TRIPLEDESencrypt(content, key);
-    // get filetype from original file
-    let filetype = document.getElementById('File').files[0].type;
-    content = "fstype[" + filetype+ "]" + content;
-    // get filename from original file
-    let filename = document.getElementById('File').files[0].name;
-    content = "fsname[" + filename + "]" + content;
-    // calculate filesize
-    let size = content.length;
-    let sizekib = size / 1024;
-    document.getElementById('filesize').innerText = sizekib + ' KiB';
-    window.encout = content;
-    content = '';
-    key = '';
-    document.getElementById('downenc').style.display = 'block';
-}
-async function downloadEnc() {
-    const data = window.encout;
-    const blob = new Blob([data], { type: 'encrypted/fuckmybytes' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = window.filehash + '.fmbf';
-    link.click();
-    URL.revokeObjectURL(url);
-    window.encout = null;
+    var file = document.getElementById('File').files[0];
+    var reader = new FileReader();
+    reader.onload = () => {
+        var key = SHAPassgen(document.getElementById('Password').value);
+        var wordArray = CryptoJS.lib.WordArray.create(reader.result);           // Convert: ArrayBuffer -> WordArray
+        var encrypted = CryptoJS.AES.encrypt(wordArray, key).toString();        // Encryption: I: WordArray -> O: -> Base64 encoded string (OpenSSL-format)
+        var fileEnc = new Blob([encrypted]);                                    // Create blob from string
+        var a = document.createElement("a");
+        var url = window.URL.createObjectURL(fileEnc);
+        var filename = file.name + ".fmbf";
+        a.href = url;
+        a.download = filename;
+        a.click();
+        window.URL.revokeObjectURL(url);
+    };
+    reader.readAsArrayBuffer(file);
 }
 async function UTF8GetBytes(str) {
     console.log('UTF8 is processing...')
@@ -113,5 +91,3 @@ async function TRIPLEDESencrypt(str, key) {
 
 window.encrypt = encrypt;
 window.encryptFile = encryptFile;
-window.filehash = filehash;
-window.downloadEnc = downloadEnc;
