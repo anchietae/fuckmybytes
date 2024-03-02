@@ -1,6 +1,7 @@
 import { SHAPassgen } from './shared.js';
 const textDecoder = new TextDecoder();
-
+let filetype = null;
+let filename = null;
 
 async function decrypt() {
     document.getElementById('Output').value = '';
@@ -19,6 +20,47 @@ async function decrypt() {
     // Delete content from variables, to prevent memory leaks
     content = '';
     key = '';
+}
+async function decryptFile() {
+    document.getElementById('downenc').style.display = 'none';
+    document.getElementById('downdec').style.display = 'none';
+    let key = await SHAPassgen(document.getElementById('Password').value)
+    let content = window.filebytes;
+    // remove filename from original file
+    window.filename = content.substring(0, content.indexOf(']') + 1);
+    window.filename = window.filename.substring(window.filename.indexOf('[') + 1, window.filename.indexOf(']'));
+    content = content.substring(content.indexOf(']') + 1, content.length);
+    // remove filetype from original file
+    window.filetype = content.substring(0, content.indexOf(']') + 1);
+    window.filetype = window.filetype.substring(window.filetype.indexOf('[') + 1, window.filetype.indexOf(']'));
+    content = content.substring(content.indexOf(']') + 1, content.length);
+    // logic
+    content = await TRIPLEDESdecrypt(content, key);
+    content = await DESdecrypt(content, key);
+    content = await AESdecrypt(content, key);
+    let numbers = content.split(',').map(Number);
+    let uint8Array = new Uint8Array(numbers);
+    content = await textDecoder.decode(uint8Array).toString();
+    // calculate filesize
+    let size = content.length;
+    let sizekib = size / 1024;
+    document.getElementById('filesize').innerText = sizekib + ' KiB';
+    // Delete content from variables, to prevent memory leaks
+    window.encout = content;
+    content = '';
+    key = '';
+    document.getElementById('downdec').style.display = 'block';
+}
+async function downloadDec() {
+    const data = window.encout;
+    const blob = new Blob([data], { type: window.filetype });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = window.filename;
+    link.click();
+    URL.revokeObjectURL(url);
+    window.encout = null;
 }
 async function TRIPLEDESdecrypt(str, key) {
     console.log('3DES decrypting...')
@@ -71,3 +113,7 @@ async function UTF8GetString(str) {
 }
 
 window.decrypt = decrypt;
+window.decryptFile = decryptFile;
+window.downloadDec = downloadDec;
+window.filetype = filetype;
+window.filename = filename;

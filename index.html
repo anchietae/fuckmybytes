@@ -11,6 +11,7 @@
     <script src="https://cdn.jsdelivr.net/pako/1.0.3/pako.min.js"></script>
     <script type="module" src="encryptionlogic.js" data-cfasync="false"></script>
     <script type="module" src="decryptionlogic.js" data-cfasync="false"></script>
+    <script type="module" src="shared.js" data-cfasync="false"></script>
 </head>
 
 <body>
@@ -23,12 +24,23 @@
     <div class="box">
         <p>Encryption happens right from your browser, so you don't need to worry about privacy!</p>
         <textarea id="Content" placeholder="Content" class="input"></textarea><br>
-        <input type="password" id="Password" placeholder="Password">
+        <div>
+        <p style="display: inline;">Or</p>
+        <input type="file" class="fileinput" id="File" style="display: inline;">
+        <button onclick="loadfile()" style="display: inline;">Load File</button><br>
+        </div>
+        <input type="password" id="Password" placeholder="Password"><br>
         <button onclick="encrypt()">Encrypt</button>
-        <button onclick="decrypt()">Decrypt</button>
+        <button onclick="decrypt()">Decrypt</button><br>
+        <button onclick="encryptFile()">Encrypt File</button>
+        <button onclick="decryptFile()">Decrypt File</button>
     </div>
     <div class="box">
         <textarea id="Output" placeholder="Output" class="input" disabled></textarea>
+        <p>Or the encrypted file:</p>
+        <p id="filesize"></p>
+        <button onclick="downloadEnc()" id="downenc">Download Encrypted File</button>
+        <button onclick="downloadDec()" id="downdec">Download Decrypted File</button>
     </div>
     <div class="box">
         <h2>How it works?</h2>
