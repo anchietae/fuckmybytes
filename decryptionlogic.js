@@ -13,6 +13,7 @@ async function decrypt() {
     content = await fromBase64(content);
     content = await UTF8GetString(content);
     console.log('Final decrypted string is: ' + content);
+    document.getElementById('Output').value = content;
 }
 async function TRIPLEDESdecrypt(str, key) {
     let out = CryptoJS.TripleDES.decrypt(str, key);

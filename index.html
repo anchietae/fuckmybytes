@@ -21,10 +21,14 @@
         </div>
     </div>
     <div class="box">
-        <input type="text" id="Content">
-        <input type="password" id="Password">
-        <button onclick="encrypt()">encrypt</button>
-        <button onclick="decrypt()">decrypt</button>
+        <p>Encryption happens right from your browser, so you don't need to worry about privacy!</p>
+        <textarea id="Content" placeholder="Content" class="input"></textarea><br>
+        <input type="password" id="Password" placeholder="Password">
+        <button onclick="encrypt()">Encrypt</button>
+        <button onclick="decrypt()">Decrypt</button><br>
+    </div>
+    <div class="box">
+        <textarea id="Output" placeholder="Output" class="input" disabled></textarea>
     </div>
 </body>
 

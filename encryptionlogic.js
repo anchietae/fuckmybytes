@@ -12,6 +12,7 @@ async function encrypt() {
     content = await compress(content);
     content = await TRIPLEDESencrypt(content, key);
     console.log('Final encrypted string is: ' + content);
+    document.getElementById('Output').value = content;
 }
 async function UTF8GetBytes(str) {
     let out = await textEncoder.encode(str);

@@ -20,6 +20,8 @@ div.header {
 }
 
 div.box {
+    margin: 5px;
+    padding: 5px;
     backdrop-filter: blur(2px);
 }
 
@@ -32,5 +34,10 @@ button {
     color: #000000;
 }
 input {
+    color: #000000;
+}
+.input {
+    width: 99%;
+    height: 300px;
     color: #000000;
 }
