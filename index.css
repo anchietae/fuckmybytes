@@ -1,0 +1,29 @@
+@font-face {
+    font-family: "Retron2000";
+    src: url(/assets/Retron2000.ttf);
+}
+
+body {
+    font-family: "Retron2000";
+    color: #cccccc;
+    width: 100%;
+    height: 100%;
+    background: #222222 radial-gradient(#cccccc 10%, transparent 1%);
+    background-size: 10px 10px;
+    margin: 0;
+    padding: 0;
+}
+
+div.header {
+    backdrop-filter: blur(2px);
+    padding-right: 20px;
+}
+
+div.box {
+    backdrop-filter: blur(2px);
+}
+
+div.title {
+    text-align: right;
+    line-height: 8px;
+}
