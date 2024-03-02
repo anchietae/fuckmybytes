@@ -20,6 +20,7 @@ div.header {
 }
 
 div.box {
+    margin-top: 20px !important;
     margin: 5px;
     padding: 5px;
     backdrop-filter: blur(2px);
@@ -31,13 +32,23 @@ div.title {
 }
 
 button {
-    color: #000000;
+    font-family: "Retron2000";
+    color: #cccccc;
+    background-color: #00000020;
 }
 input {
-    color: #000000;
+    font-family: "Retron2000";
+    color: #cccccc;
+    background-color: #22222220;
 }
 .input {
+    font-family: "Retron2000";
     width: 99%;
     height: 300px;
-    color: #000000;
+    color: #cccccc;
+    background-color: #22222220;
+}
+.input:disabled {
+    color: #cccccc;
+    background-color: #00000020;
 }

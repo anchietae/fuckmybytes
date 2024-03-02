@@ -25,10 +25,25 @@
         <textarea id="Content" placeholder="Content" class="input"></textarea><br>
         <input type="password" id="Password" placeholder="Password">
         <button onclick="encrypt()">Encrypt</button>
-        <button onclick="decrypt()">Decrypt</button><br>
+        <button onclick="decrypt()">Decrypt</button>
     </div>
     <div class="box">
         <textarea id="Output" placeholder="Output" class="input" disabled></textarea>
+    </div>
+    <div class="box">
+        <h2>How it works?</h2>
+        <ol>
+            <li>SHA512 100 times the Password</li>
+            <li>Convert string to UTF8 bytes</li>
+            <li>Convert the bytes into Base64</li>
+            <li>Add "I'm nothing like yall" to the beggining of the string</li>
+            <li>AES encrypt the string</li>
+            <li>Compress the string with GZIP</li>
+            <li>DES encrypt the string</li>
+            <li>Compress again with GZIP</li>
+            <li>3DES encrypt the string</li>
+        </ol>
+        <p>That's it.</p>
     </div>
 </body>
 

@@ -6,6 +6,8 @@ async function encrypt() {
     let content = document.getElementById('Content').value;
     content = await UTF8GetBytes(content);
     content = await toBase64(content);
+    content = "I'm nothing like yall" + content;
+    console.log("I'm nothing like yall");
     content = await AESencrypt(content, key);
     content = await compress(content);
     content = await DESencrypt(content, key);

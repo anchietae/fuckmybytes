@@ -10,6 +10,8 @@ async function decrypt() {
     content = await DESdecrypt(content, key);
     content = await decompress(content);
     content = await AESdecrypt(content, key);
+    const prefixToRemove = "I'm nothing like yall";
+    content = content.substring(prefixToRemove.length, content.length);
     content = await fromBase64(content);
     content = await UTF8GetString(content);
     console.log('Final decrypted string is: ' + content);
