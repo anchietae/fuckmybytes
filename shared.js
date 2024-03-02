@@ -12,7 +12,3 @@ async function SHAPassgen(key) {
 export { SHAPassgen };
 window.filebytes = filebytes;
 window.encout = encout;
-window.onload = function () {
-document.getElementById('downenc').style.display = 'none';
-document.getElementById('downdec').style.display = 'none';
-}

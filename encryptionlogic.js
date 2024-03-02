@@ -23,11 +23,15 @@ async function encrypt() {
 async function encryptFile() {
     var file = document.getElementById('File').files[0];
     var reader = new FileReader();
+    let k = document.getElementById('Password').value;
+    for (let i = 0; i < 100; i++) {
+        k = await CryptoJS.SHA512(k);
+    }
     reader.onload = () => {
-        var key = SHAPassgen(document.getElementById('Password').value);
-        var wordArray = CryptoJS.lib.WordArray.create(reader.result);           // Convert: ArrayBuffer -> WordArray
-        var encrypted = CryptoJS.AES.encrypt(wordArray, key).toString();        // Encryption: I: WordArray -> O: -> Base64 encoded string (OpenSSL-format)
-        var fileEnc = new Blob([encrypted]);                                    // Create blob from string
+        var key = k.toString();
+        var wordArray = CryptoJS.lib.WordArray.create(reader.result);
+        var encrypted = CryptoJS.AES.encrypt(wordArray, key).toString();
+        var fileEnc = new Blob([encrypted]);
         var a = document.createElement("a");
         var url = window.URL.createObjectURL(fileEnc);
         var filename = file.name + ".fmbf";

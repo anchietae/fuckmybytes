@@ -37,11 +37,15 @@ function convertWordArrayToUint8Array(wordArray) {
 async function decryptFile() {
     var file = document.getElementById('File').files[0];
     var reader = new FileReader();
+    let k = document.getElementById('Password').value;
+    for (let i = 0; i < 100; i++) {
+        k = await CryptoJS.SHA512(k);
+    }
     reader.onload = () => {
-        var key = SHAPassgen(document.getElementById('Password').value);
-        var decrypted = CryptoJS.AES.decrypt(reader.result, key);               // Decryption: I: Base64 encoded string (OpenSSL-format) -> O: WordArray
-        var typedArray = convertWordArrayToUint8Array(decrypted);               // Convert: WordArray -> typed array
-        var fileDec = new Blob([typedArray]);                                   // Create blob from typed array
+        var key = k.toString();
+        var decrypted = CryptoJS.AES.decrypt(reader.result, key);
+        var typedArray = convertWordArrayToUint8Array(decrypted);
+        var fileDec = new Blob([typedArray]);
         var a = document.createElement("a");
         var url = window.URL.createObjectURL(fileDec);
         var filename = file.name.substr(0, file.name.length - 5);
