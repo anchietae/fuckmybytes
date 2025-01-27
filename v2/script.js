@@ -1,16 +1,15 @@
 function generateKey(password) {
     const key = new Uint8Array(32);
-    let sum = 0;
+    let hash = 0;
 
     for (let i = 0; i < password.length; i++) {
-        sum = (sum + password.charCodeAt(i)) >>> 0;
-        key[i % 32] = (key[i % 32] + password.charCodeAt(i) + sum) % 256;
+        hash = ((hash << 5) - hash) + password.charCodeAt(i);
+        hash = hash & hash;
     }
 
     for (let i = 0; i < 32; i++) {
-        sum = (sum + key[i]) >>> 0;
-        const j = (sum + i) % 32;
-        [key[i], key[j]] = [key[j], key[i]];
+        hash = (hash * 1664525 + 1013904223) & 0xFFFFFFFF;
+        key[i] = hash & 0xFF;
     }
 
     return key;
@@ -18,32 +17,40 @@ function generateKey(password) {
 
 function generateStream(key, length) {
     const stream = new Uint8Array(length);
-    let a = key[0], b = key[1], c = key[2], d = key[3];
+    const state = new Uint32Array(4);
+
+    for (let i = 0; i < 4; i++) {
+        state[i] = (key[i * 4] << 24) | (key[i * 4 + 1] << 16) |
+            (key[i * 4 + 2] << 8) | key[i * 4 + 3];
+    }
 
     for (let i = 0; i < length; i++) {
-        a = (a + b) % 256;
-        b = (b + c) % 256;
-        c = (c + d) % 256;
-        d = (d + a) % 256;
+        state[0] = (state[0] + state[1]) >>> 0;
+        state[1] = ((state[1] << 7) | (state[1] >>> 25)) >>> 0;
+        state[2] = (state[2] + state[3]) >>> 0;
+        state[3] = ((state[3] << 13) | (state[3] >>> 19)) >>> 0;
 
-        const mix = ((a << 3) | (b >> 5)) & 0xFF;
-        stream[i] = (mix + key[i % 32]) % 256;
+        stream[i] = (state[0] ^ state[2]) & 0xFF;
     }
 
     return stream;
 }
 
 function processData(data, password) {
-    const inputData = data instanceof Uint8Array ? data : new TextEncoder().encode(data);
-    const key = generateKey(password);
-    const stream = generateStream(key, inputData.length);
+    try {
+        const inputData = data instanceof Uint8Array ? data : new TextEncoder().encode(data);
+        const key = generateKey(password);
+        const stream = generateStream(key, inputData.length);
 
-    const output = new Uint8Array(inputData.length);
-    for (let i = 0; i < inputData.length; i++) {
-        output[i] = inputData[i] ^ stream[i];
+        const output = new Uint8Array(inputData.length);
+        for (let i = 0; i < inputData.length; i++) {
+            output[i] = inputData[i] ^ stream[i];
+        }
+
+        return output;
+    } catch (error) {
+        throw new Error('Failed to process data: ' + error.message);
     }
-
-    return output;
 }
 
 function handleText(action) {
@@ -59,7 +66,7 @@ function handleText(action) {
     try {
         if (action === 'encrypt') {
             const encrypted = processData(input, password);
-            output.textContent = btoa(String.fromCharCode.apply(null, encrypted));
+            output.textContent = btoa(String.fromCharCode(...encrypted));
         } else {
             try {
                 const decoded = Uint8Array.from(atob(input), c => c.charCodeAt(0));
@@ -92,11 +99,17 @@ function handleFile(action) {
             const data = new Uint8Array(e.target.result);
             const processed = processData(data, password);
 
-            const blob = new Blob([processed]);
+            const blob = new Blob([processed], {type: 'application/octet-stream'});
             const url = URL.createObjectURL(blob);
+
             const a = document.createElement('a');
             a.href = url;
-            a.download = file.name + (action === 'encrypt' ? '.fmbv2' : '');
+            if (action === 'encrypt') {
+                a.download = file.name + '.fmbv2';
+            } else {
+                a.download = file.name.replace(/\.fmbv2$/, '');
+            }
+
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
@@ -106,6 +119,10 @@ function handleFile(action) {
         } catch (error) {
             output.textContent = 'Error processing file: ' + error.message;
         }
+    };
+
+    reader.onerror = function () {
+        output.textContent = 'Error reading file';
     };
 
     reader.readAsArrayBuffer(file);
