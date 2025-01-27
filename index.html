@@ -1,60 +1,29 @@
 <!DOCTYPE html>
-<!-- Hey bro, you shouldn't just dig into the code like it's a mine. -->
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FuckMyBytes</title>
-    <link rel="stylesheet" href="/index.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/pako/1.0.3/pako.min.js"></script>
-    <script type="module" src="encryptionlogic.js" data-cfasync="false"></script>
-    <script type="module" src="decryptionlogic.js" data-cfasync="false"></script>
-    <script type="module" src="shared.js" data-cfasync="false"></script>
+    <link rel="stylesheet" href="/assets/index.css">
 </head>
-
 <body>
-    <div class="header">
-        <div class="title">
-            <h1>FuckMyBytes</h1>
-            <u><p>Advanced Byte Fucking Technology</p></u>
-        </div>
+<div class="header">
+    <div class="title">
+        <h1>FuckMyBytes</h1>
+        <p><u>Advanced Byte Fucking Technology</u></p>
     </div>
-    <div class="box">
-        <p>Encryption happens right from your browser, so you don't need to worry about privacy!</p>
-        <textarea id="Content" placeholder="Content" class="input"></textarea><br>
-        <div>
-        <p style="display: inline;">Or</p>
-        <input type="file" class="fileinput" id="File" style="display: inline;"><br>
-        </div>
-        <input type="password" id="Password" placeholder="Password"><br>
-        <button onclick="encrypt()">Encrypt</button>
-        <button onclick="decrypt()">Decrypt</button><br>
-        <button onclick="encryptFile()">Encrypt File</button>
-        <button onclick="decryptFile()">Decrypt File</button>
-    </div>
-    <div class="box">
-        <textarea id="Output" placeholder="Output" class="input" disabled></textarea>
-    </div>
-    <div class="box">
-        <h2>How it works?</h2>
-        <ol>
-            <li>SHA512 100 times the Password</li>
-            <li>Convert string to UTF8 bytes</li>
-            <li>Convert the bytes into Base64</li>
-            <li>Add "I'm nothing like yall" to the beggining of the string</li>
-            <li>AES encrypt the string</li>
-            <li>Compress the string with GZIP</li>
-            <li>DES encrypt the string</li>
-            <li>Compress again with GZIP</li>
-            <li>3DES encrypt the string</li>
-        </ol>
-        <p>That's it.</p>
-        <h2>For files:</h2>
-        <p>I couldn't do a better encryption for files because of the encoding, so I did a simple AES encryption.</p>
-        <p>Still don't beleive? <a href="https://github.com/balazsmanus/fuckmybytes">Github</a></p>
-    </div>
+</div>
+<div class="box">
+    <h1>The next generation of byte fucking (aka encryption) is here!</h1>
+    <p>I have worked hard to make your bytes safe with your special password.</p>
+    <p>Encrypt as much as you want, I don't really care...</p>
+</div>
+<div class="box">
+    <h2>Select your version</h2>
+    <ul>
+        <li><a href="/v1">FuckMyBytes V1</a> - The older version, that creates a 376 character long string from just 1 character!</li>
+        <li><a href="/v2">FuckMyBytes V2</a> - A better, more powerful version, that doesn't add a bunch of shit to your small string</li>
+    </ul>
+</div>
 </body>
-
 </html>
