@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FuckMyBytes2-RNG</title>
+    <link rel="stylesheet" href="/assets/index.css">
+</head>
+<body>
+<div class="header">
+    <div class="title">
+        <h1>FuckMyBytes2-RNG</h1>
+        <p><u>The Random Number Generatorised version of the well-known ABF technology.</u></p>
+    </div>
+</div>
+<div class="box">
+    <p>Everything happens in your browser, don't worry about privacy.</p>
+    <textarea id="text-input" placeholder="Content should go here" class="input"></textarea><br>
+    <div>
+        <p style="display: inline;">Or</p>
+        <input type="file" class="fileinput" id="file-input" style="display: inline;"><br>
+    </div>
+    <input type="password" id="password" placeholder="Password"><br>
+    <button onclick="handleText('encrypt')">Encrypt</button>
+    <button onclick="handleText('decrypt')">Decrypt</button>
+    <button onclick="handleFile('encrypt')">Encrypt File</button>
+    <button onclick="handleFile('decrypt')">Decrypt File</button>
+</div>
+<div class="box">
+    <textarea id="output" placeholder="Output" class="input" disabled></textarea>
+</div>
+<script src="script.js"></script>
+<div class="box">
+    <h2>How it works?</h2>
+    <ol>
+        <li>Key generation
+            <ol>
+                <li>Generates a random 16-byte salt</li>
+                <li>Convert password into bytes with UTF-8 encoding</li>
+                <li>PBKDF2 the password (SHA-256, 100000x, 256 bits, salt)</li>
+                <li>Secure the 32-byte key</li>
+            </ol>
+        </li>
+        <li>Encryption
+        <ol>
+            <li>Generates a 16-byte initialization vector</li>
+            <li>Sets up AES in counter mode</li>
+            <li>Encrypt bytes using the AES</li>
+            <li>Combine the data in the following order:<br>
+            - First 16 bytes: Salt<br>
+            - Next 16 bytes: Initialization vector<br>
+            - Remaining: data</li>
+        </ol>
+        </li>
+    </ol>
+    <p>That's pretty good for an RNG right?</p>
+</div>
+</body>
+</html>
