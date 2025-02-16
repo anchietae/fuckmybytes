@@ -1,58 +1,157 @@
-@font-face {
-    font-family: "Retron2000";
-    src: url(/assets/Retron2000.ttf);
+html {
+    overflow-y: scroll;
+}
+
+:root {
+    --bgcolor: #f2ecbc;
+    --fontcolor: #545464;
+    --linkcolor: #73A7BC;
+    --visitedcolor: #73A7BC;
+    --precolor: #43436c;
+    --prebgcolor: #c9cbd1;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bgcolor: #181616;
+        --fontcolor: #c5c9c5;
+        --linkcolor: #72A7BC;
+        --visitedcolor: #72A7BC;
+        --precolor: #C8C093;
+        --prebgcolor: #2D4F67;
+    }
 }
 
 body {
-    font-family: "Retron2000";
-    color: #cccccc;
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 0 10px;
+    font: 14px/1.5 monospace;
+    color: var(--fontcolor);
+    background: var(--bgcolor)
+}
+
+a:link {
+    color: var(--linkcolor)
+}
+
+a:visited {
+    color: var(--visitedcolor)
+}
+
+a:active {
+    color: var(--visitedcolor)
+}
+
+h1,
+h2,
+h3 {
+    line-height: 1.2
+}
+
+p>code {
+    color: var(--precolor);
+    background: var(--prebgcolor);
+    padding: 2px
+}
+
+code {
+    color: var(--precolor);
+    background: var(--prebgcolor);
+    padding: 2px
+}
+
+pre {
+    color: var(--precolor);
+    background: var(--prebgcolor);
+    padding: 24px;
+    overflow-x: auto
+}
+
+article {
+    padding: 24px 0
+}
+
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
     width: 100%;
-    height: 100%;
-    background: #222222 radial-gradient(#cccccc 10%, transparent 1%);
-    background-size: 10px 10px;
-    margin: 0;
-    padding: 0;
 }
 
-div.header {
-    background-color: #00000090;
-    padding-right: 20px;
+figcaption {
+    color: #c5c9c5;
+    font: 12px/1.5 monospace;
+    text-align: center;
 }
 
-div.box {
-    margin-top: 20px !important;
-    margin: 5px;
-    padding: 5px;
-    background-color: #00000090;
-}
-div.title {
-    text-align: right;
-    line-height: 8px;
+figure {
+    margin: auto
 }
 
-button {
-    font-family: "Retron2000";
-    color: #cccccc;
-    background-color: #00000020;
+img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+    max-height: 500px;
 }
+
+main {
+    font: 14px/1.5 sans-serif;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: auto;
+}
+
+body::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+body::-webkit-scrollbar-track-piece {
+    background-color: transparent;
+    -webkit-border-radius: 5px;
+}
+
+body::-webkit-scrollbar-thumb {
+    height: auto;
+    background-color: #181616;
+    -webkit-border-radius: 5px;
+    border: 1px solid #c5c9c5;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+    height: auto;
+    background-color: #2D4F67;
+    -webkit-border-radius: 5px;
+    border: 1px solid #C8C093;
+}
+
 input {
-    font-family: "Retron2000";
-    color: #cccccc;
-    background-color: #22222220;
+    font-family: monospace;
+    color: #C8C093;
+    background-color: #2D4F67;
 }
 .input {
-    font-family: "Retron2000";
+    font-family: monospace;
     width: 99%;
     height: 300px;
-    color: #cccccc;
-    background-color: #22222220;
+    color: #C8C093;
+    background-color: #2D4F67;
 }
 .input:disabled {
-    color: #cccccc;
-    background-color: #00000020;
+    color: #C8C093;
+    background-color: #2D4F67;
 }
 input[type=file]::file-selector-button {
-    font-family: "Retron2000";
-    color: #cccccc;
+    font-family: serif;
+    color: #C8C093;
+    background-color: #181616;
+}
+button {
+    font-family: serif;
+    color: #c5c9c5;
     background-color: #00000020;
 }

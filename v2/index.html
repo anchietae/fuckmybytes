@@ -1,61 +1,72 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-GB">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="icon" href="data:,">
     <title>FuckMyBytes2</title>
     <link rel="stylesheet" href="/assets/index.css">
 </head>
 <body>
-<div class="header">
-    <div class="title">
-        <h1>FuckMyBytes2</h1>
-        <p><u>The next generation of ABF Technology</u></p>
+<header>
+    =================<br>
+    == <a href="https://fmb.mnus.moe/">FuckMyBytes</a> ==
+    <br>=================
+    <div style="float:right">
+        <p><u>Advanced Byte Fucking Technology</u></p>
     </div>
-</div>
-<div class="box">
-    <p>Everything happens in your browser, don't worry about privacy.</p>
-    <textarea id="text-input" placeholder="Content should go here" class="input"></textarea><br>
-    <div>
-        <p style="display: inline;">Or</p>
-        <input type="file" class="fileinput" id="file-input" style="display: inline;"><br>
+    <br>
+    <p></p></header>
+<main>
+    <h1>FuckMyBytes2</h1>
+    <p><u>The next generation of ABF Technology</u></p>
+    <hr>
+    <div class="box">
+        <p>Everything happens in your browser, don't worry about privacy.</p>
+        <textarea id="text-input" placeholder="Content should go here" class="input"></textarea><br>
+        <div>
+            <p style="display: inline;">Or</p>
+            <input type="file" class="fileinput" id="file-input" style="display: inline;"><br>
+        </div>
+        <input type="password" id="password" placeholder="Password"><br>
+        <button onclick="handleText('encrypt')">Encrypt</button>
+        <button onclick="handleText('decrypt')">Decrypt</button>
+        <button onclick="handleFile('encrypt')">Encrypt File</button>
+        <button onclick="handleFile('decrypt')">Decrypt File</button>
     </div>
-    <input type="password" id="password" placeholder="Password"><br>
-    <button onclick="handleText('encrypt')">Encrypt</button>
-    <button onclick="handleText('decrypt')">Decrypt</button>
-    <button onclick="handleFile('encrypt')">Encrypt File</button>
-    <button onclick="handleFile('decrypt')">Decrypt File</button>
-</div>
-<div class="box">
-    <textarea id="output" placeholder="Output" class="input" disabled></textarea>
-</div>
-<script src="script.js"></script>
-<div class="box">
-    <h2>How it works?</h2>
-    <ol>
-        <li>Key generation
-            <ol>
-                <li>Generates a 32-byte key</li>
-                <li>Mix the numbers together to make a stronger key</li>
-                <li>Use the key to make a bunch of random numbers</li>
-            </ol>
-        </li>
-        <li>Creating magic stream
-            <ol>
-                <li>Initialize basic variables</li>
-                <li>Generate stream bytes until we have no more bytes to mix</li>
-            </ol>
-        </li>
-        <li>Encryption
+    <div class="box">
+        <textarea id="output" placeholder="Output" class="input" disabled></textarea>
+    </div>
+    <script src="script.js"></script>
+    <div class="box">
+        <h2>How it works?</h2>
         <ol>
-            <li>Convert the input to utf8 array</li>
-            <li>Put them into an XOR</li>
-            <li>If encrypting: put them into Base64<br>
-            If decrypting: put them into utf8</li>
+            <li>Key generation
+                <ol>
+                    <li>Generates a 32-byte key</li>
+                    <li>Mix the numbers together to make a stronger key</li>
+                    <li>Use the key to make a bunch of random numbers</li>
+                </ol>
+            </li>
+            <li>Creating magic stream
+                <ol>
+                    <li>Initialize basic variables</li>
+                    <li>Generate stream bytes until we have no more bytes to mix</li>
+                </ol>
+            </li>
+            <li>Encryption
+                <ol>
+                    <li>Convert the input to utf8 array</li>
+                    <li>Put them into an XOR</li>
+                    <li>If encrypting: put them into Base64<br>
+                        If decrypting: put them into utf8
+                    </li>
+                </ol>
+            </li>
         </ol>
-        </li>
-    </ol>
-    <p>That's it. Seems to be small right?</p>
-</div>
+        <p>That's it. Seems to be small right?</p>
+    </div>
+</main>
+<footer><p>Made by <a href="https://mnus.moe/"><b>BalazsManus</b></a>.</footer>
 </body>
 </html>

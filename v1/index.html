@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<!-- Hey bro, you shouldn't just dig into the code like it's a mine. -->
-<html lang="en">
-
+<html lang="en-GB">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FuckMyBytes</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="icon" href="data:,">
+    <title>FuckMyBytes1</title>
     <link rel="stylesheet" href="/assets/index.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
     <script src="https://cdn.jsdelivr.net/pako/1.0.3/pako.min.js"></script>
@@ -13,29 +12,35 @@
     <script type="module" src="decryptionlogic.js" data-cfasync="false"></script>
     <script type="module" src="shared.js" data-cfasync="false"></script>
 </head>
-
 <body>
-    <div class="header">
-        <div class="title">
-            <h1>FuckMyBytes1</h1>
-            <p><u>The good ol' ABF Technology</u></p>
-        </div>
+<header>
+    =================<br>
+    == <a href="https://fmb.mnus.moe/">FuckMyBytes</a> ==
+    <br>=================
+    <div style="float:right">
+        <p><u>Advanced Byte Fucking Technology</u></p>
     </div>
-    <div class="box">
-        <h1>WARNING! This version is deprecated.</h1>
-        <p>You should use the more efficient, <a href="/v2">FuckMyBytes2</a></p>
-        <p>Well, nothing stops you from using this one, but I recommend using the newer one.</p>
-    </div>
+    <br>
+    <p></p></header>
+<main>
+    <h1>FuckMyBytes1</h1>
+    <p><u>The good ol' ABF Technology</u></p>
+    <hr>
+    <h1>WARNING! This version is deprecated.</h1>
+    <p>You should use the more efficient, <a href="/v2">FuckMyBytes2</a><br>
+        Well, nothing stops you from using this one, but I recommend using the newer one.</p>
+
     <div class="box">
         <p>Encryption happens right from your browser, so you don't need to worry about privacy!</p>
         <textarea id="Content" placeholder="Content" class="input"></textarea><br>
         <div>
-        <p style="display: inline;">Or</p>
-        <input type="file" class="fileinput" id="File" style="display: inline;"><br>
+            <p style="display: inline;">Or</p>
+            <input type="file" class="fileinput" id="File" style="display: inline;"><br>
         </div>
         <input type="password" id="Password" placeholder="Password"><br>
         <button onclick="encrypt()">Encrypt</button>
-        <button onclick="decrypt()">Decrypt</button><br>
+        <button onclick="decrypt()">Decrypt</button>
+        <br>
         <button onclick="encryptFile()">Encrypt File</button>
         <button onclick="decryptFile()">Decrypt File</button>
     </div>
@@ -60,6 +65,8 @@
         <p>I couldn't do a better encryption for files because of the encoding, so I did a simple AES encryption.</p>
         <p>Still don't believe? <a href="https://github.com/balazsmanus/fuckmybytes">GitHub</a></p>
     </div>
-</body>
 
+</main>
+<footer><p>Made by <a href="https://mnus.moe/"><b>BalazsManus</b></a>.</footer>
+</body>
 </html>
