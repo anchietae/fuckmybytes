@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="icon" href="data:,">
+    <title>FuckMyBytes</title>
+    <link rel="stylesheet" href="/assets/index.css">
+</head>
+<body>
+<header>
+    =================<br>
+    == <a href="https://fmb.mnus.moe/">FuckMyBytes</a> ==
+    <br>=================
+    <div style="float:right">
+        <p><u>Advanced Byte Fucking Technology</u></p>
+    </div>
+    <br>
+    <p></p></header>
+<main>
+    <h1>FuckMyBytes4</h1>
+    <p><u>The Random Number Generatorised version of the well-known ABF technology.</u></p>
+    <hr>
+    <div class="box">
+        <p>Everything happens in your browser, don't worry about privacy.</p>
+        <textarea id="text-input" placeholder="Content should go here" class="input"></textarea><br>
+        <div>
+            <p style="display: inline;">Or</p>
+            <input type="file" class="fileinput" id="file-input" style="display: inline;"><br>
+        </div>
+        <input type="password" id="password" placeholder="Password"><br>
+        <button onclick="handleText('encrypt')">Encrypt</button>
+        <button onclick="handleText('decrypt')">Decrypt</button>
+        <button onclick="handleFile('encrypt')">Encrypt File</button>
+        <button onclick="handleFile('decrypt')">Decrypt File</button>
+    </div>
+    <div class="box">
+        <textarea id="output" placeholder="Output" class="input" disabled></textarea>
+    </div>
+    <script src="script.js"></script>
+    <div class="box">
+        <h2>How it works?</h2>
+        <ol>
+            <li>Key generation
+                <ol>
+                    <li>Generates a random 16-byte salt</li>
+                    <li>Convert password into bytes with UTF-8 encoding</li>
+                    <li>First round: PBKDF2 the password (SHA-256, 600,000x, 256 bits, salt)</li>
+                    <li>Second round: PBKDF2 the result (SHA-512, 100,000x, 256 bits, salt)</li>
+                    <li>Secure the final 32-byte key</li>
+                </ol>
+            </li>
+            <li>Encryption
+                <ol>
+                    <li>Generates a 12-byte nonce for GCM</li>
+                    <li>Creates associated data (version + salt + timestamp) for authentication</li>
+                    <li>Sets up AES-256 in GCM mode (authenticated encryption)</li>
+                    <li>Encrypt bytes using AES-GCM with associated data</li>
+                    <li>Combine the data in the following order:<br>
+                        - First 4 bytes: Version header ("FMB4")<br>
+                        - Next 16 bytes: Salt<br>
+                        - Next 8 bytes: Timestamp<br>
+                        - Next 12 bytes: GCM Nonce<br>
+                        - Remaining: Encrypted data + 16-byte authentication tag</li>
+                </ol>
+            </li>
+        </ol>
+        <p>Go go pocket byte fucker!</p>
+    </div>
+</main>
+<footer><p>Made by <a href="https://mnus.moe/"><b>BalazsManus</b></a>.</footer>
+</body>
+</html>
